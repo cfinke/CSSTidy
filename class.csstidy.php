@@ -701,7 +701,7 @@ class csstidy {
 				/* Case in-value */
 				case 'iv':
 					$pn = (($string{$i} === "\n" || $string{$i} === "\r") && $this->property_is_next($string, $i + 1) || $i == strlen($string) - 1);
-					if (csstidy::is_token($string, $i) || $pn) {
+					if ((csstidy::is_token($string, $i) || $pn) && (!($string{$i} == ',' && !ctype_space($string{$i+1})))) {
 						if ($string{$i} === '/' && @$string{$i + 1} === '*') {
 							$this->status = 'ic';
 							++$i;
@@ -828,7 +828,7 @@ class csstidy {
 					} elseif (!$pn) {
 						$this->sub_value .= $string{$i};
 
-						if (ctype_space($string{$i})) {
+						if (ctype_space($string{$i}) || $string{$i} == ',') {
 							$this->optimise->subvalue();
 							if ($this->sub_value != '') {
 								$this->sub_value_arr[] = $this->sub_value;
