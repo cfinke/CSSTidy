@@ -1,0 +1,17 @@
+--TEST--
+CSS is case-insensitive. Normalize properties.
+--CSS--
+a {
+	COLOR: orange;
+	bAcKgRoUnD: green;
+	text-decoration: underLINE;
+}
+--EXPECT--
+array (
+  'a' => 
+  array (
+    'color' => 'orange',
+    'background' => 'green',
+    'text-decoration' => 'underLINE',
+  ),
+)
